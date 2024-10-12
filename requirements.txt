@@ -1,4 +1,5 @@
 flask
-vanna[sqlite]
+vanna[mysql]
 db-dtypes
 python-dotenv
+gunicorn
