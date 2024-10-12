@@ -16,15 +16,16 @@ cache = MemoryCache()
 # vn = LocalContext_OpenAI()
 
 from vanna.remote import VannaDefault
-vn = VannaDefault(model=os.environ['VANNA_MODEL'], api_key=os.environ['VANNA_API_KEY'])
-
-vn.connect_to_snowflake(
-    account=os.environ['SNOWFLAKE_ACCOUNT'],
-    username=os.environ['SNOWFLAKE_USERNAME'],
-    password=os.environ['SNOWFLAKE_PASSWORD'],
-    database=os.environ['SNOWFLAKE_DATABASE'],
-    warehouse=os.environ['SNOWFLAKE_WAREHOUSE'],
-)
+# vn = VannaDefault(model=os.environ['VANNA_MODEL'], api_key=os.environ['VANNA_API_KEY'])
+vn = VannaDefault(model='chinook', api_key='d8a6af0b998948c1bbf5b2cc92c7e2bf')
+vn.connect_to_sqlite('https://vanna.ai/Chinook.sqlite')
+# vn.connect_to_snowflake(
+#     account=os.environ['SNOWFLAKE_ACCOUNT'],
+#     username=os.environ['SNOWFLAKE_USERNAME'],
+#     password=os.environ['SNOWFLAKE_PASSWORD'],
+#     database=os.environ['SNOWFLAKE_DATABASE'],
+#     warehouse=os.environ['SNOWFLAKE_WAREHOUSE'],
+# )
 
 # NO NEED TO CHANGE ANYTHING BELOW THIS LINE
 def requires_cache(fields):
