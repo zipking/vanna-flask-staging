@@ -18,7 +18,7 @@ cache = MemoryCache()
 from vanna.remote import VannaDefault
 # vn = VannaDefault(model=os.environ['VANNA_MODEL'], api_key=os.environ['VANNA_API_KEY'])
 vn = VannaDefault(model='jormodel', api_key='d8a6af0b998948c1bbf5b2cc92c7e2bf')
-vn.connect_to_mysql(host='db-mysql-sgp1-proj-ai-dev-do-user-11333017-0.g.db.ondigitalocean.com', dbname='defaultdb', user='dbadmin', password='AVNS_VsqqAPzLMCSlHjSg8ME', port=25060)
+vn.connect_to_mysql(host='db-mysql-sgp1-proj-ai-dev-do-user-11333017-0.g.db.ondigitalocean.com', dbname='defaultdb', user='doadmin', password='AVNS_VsqqAPzLMCSlHjSg8ME', port=25060)
 # vn.connect_to_sqlite('https://vanna.ai/Chinook.sqlite')
 # vn.connect_to_snowflake(
 #     account=os.environ['SNOWFLAKE_ACCOUNT'],
