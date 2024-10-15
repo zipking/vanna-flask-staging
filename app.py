@@ -9,6 +9,7 @@ from cache import MemoryCache
 
 app = Flask(__name__, static_url_path='')
 
+
 # SETUP
 cache = MemoryCache()
 
@@ -16,6 +17,8 @@ cache = MemoryCache()
 # vn = LocalContext_OpenAI()
 
 from vanna.remote import VannaDefault
+from vanna.flask import VannaFlaskApp
+
 # vn = VannaDefault(model=os.environ['VANNA_MODEL'], api_key=os.environ['VANNA_API_KEY'])
 vn = VannaDefault(model='jormodel', api_key='d8a6af0b998948c1bbf5b2cc92c7e2bf')
 vn.connect_to_mysql(host='db-mysql-sgp1-proj-ai-dev-do-user-11333017-0.g.db.ondigitalocean.com', dbname='defaultdb', user='doadmin', password='AVNS_VsqqAPzLMCSlHjSg8ME', port=25060)
@@ -27,6 +30,7 @@ vn.connect_to_mysql(host='db-mysql-sgp1-proj-ai-dev-do-user-11333017-0.g.db.ondi
 #     database=os.environ['SNOWFLAKE_DATABASE'],
 #     warehouse=os.environ['SNOWFLAKE_WAREHOUSE'],
 # )
+
 
 # NO NEED TO CHANGE ANYTHING BELOW THIS LINE
 def requires_cache(fields):
@@ -224,4 +228,5 @@ def root():
     return app.send_static_file('index.html')
 
 if __name__ == '__main__':
+    app = VannaFlaskApp(vn, allow_llm_to_see_data=True)
     app.run(debug=True)
