@@ -17,8 +17,9 @@ cache = MemoryCache()
 
 from vanna.remote import VannaDefault
 # vn = VannaDefault(model=os.environ['VANNA_MODEL'], api_key=os.environ['VANNA_API_KEY'])
-vn = VannaDefault(model='chinook', api_key='d8a6af0b998948c1bbf5b2cc92c7e2bf')
-vn.connect_to_sqlite('https://vanna.ai/Chinook.sqlite')
+vn = VannaDefault(model='jormodel', api_key='d8a6af0b998948c1bbf5b2cc92c7e2bf')
+vn.connect_to_mysql(host='db-mysql-sgp1-proj-ai-dev-do-user-11333017-0.g.db.ondigitalocean.com', dbname='defaultdb', user='dbadmin', password='AVNS_VsqqAPzLMCSlHjSg8ME', port=25060)
+# vn.connect_to_sqlite('https://vanna.ai/Chinook.sqlite')
 # vn.connect_to_snowflake(
 #     account=os.environ['SNOWFLAKE_ACCOUNT'],
 #     username=os.environ['SNOWFLAKE_USERNAME'],
@@ -164,6 +165,18 @@ def add_training_data():
     try:
         id = vn.train(question=question, sql=sql, ddl=ddl, documentation=documentation)
 
+        return jsonify({"id": id})
+    except Exception as e:
+        print("TRAINING ERROR", e)
+        return jsonify({"type": "error", "error": str(e)})
+
+@app.route('/api/v0/trainplan', methods=['POST'])
+def add_training_data():
+    df_information_schema = vn.run_sql("SELECT * FROM INFORMATION_SCHEMA.COLUMNS")
+    plan = vn.get_training_plan_generic(df_information_schema)
+    
+    try:
+        id = vn.train(plan=plan)
         return jsonify({"id": id})
     except Exception as e:
         print("TRAINING ERROR", e)
