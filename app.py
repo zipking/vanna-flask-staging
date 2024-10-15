@@ -72,7 +72,7 @@ def generate_sql():
         return jsonify({"type": "error", "error": "No question provided"})
 
     id = cache.generate_id(question=question)
-    sql = vn.generate_sql(question=question)
+    sql = vn.generate_sql(question=question, allow_llm_to_see_data=True)
 
     cache.set(id=id, field='question', value=question)
     cache.set(id=id, field='sql', value=sql)
@@ -179,7 +179,6 @@ def add_training_data():
 def add_training_data_plan():
     df_information_schema = vn.run_sql("SELECT * FROM INFORMATION_SCHEMA.COLUMNS")
     plan = vn.get_training_plan_generic(df_information_schema)
-    
     try:
         id = vn.train(plan=plan)
         return jsonify({"id": id})
