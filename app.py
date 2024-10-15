@@ -171,7 +171,7 @@ def add_training_data():
         return jsonify({"type": "error", "error": str(e)})
 
 @app.route('/api/v0/trainplan', methods=['POST'])
-def add_training_data():
+def add_training_data_plan():
     df_information_schema = vn.run_sql("SELECT * FROM INFORMATION_SCHEMA.COLUMNS")
     plan = vn.get_training_plan_generic(df_information_schema)
     
