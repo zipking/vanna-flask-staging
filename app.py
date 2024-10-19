@@ -144,7 +144,7 @@ def get_training_data():
     {
         "type": "df", 
         "id": "training_data",
-        "df": df.head(25).to_json(orient='records'),
+        "df": df.to_json(orient='records'),
     })
 
 @app.route('/api/v0/remove_training_data', methods=['POST'])
