@@ -103,7 +103,6 @@ def run_sql(id: str, sql: str):
         return jsonify({"type": "error", "error": str(e)})
 
 @app.route('/api/v0/run_sql', methods=['POST'])
-@requires_cache(['sql'])
 def run_sql_post():
     data = request.get_json()
     sql = data.get("sql") if data else None
