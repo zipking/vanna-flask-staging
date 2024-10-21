@@ -102,6 +102,20 @@ def run_sql(id: str, sql: str):
     except Exception as e:
         return jsonify({"type": "error", "error": str(e)})
 
+@app.route('/api/v0/run_sql', methods=['POST'])
+@requires_cache(['sql'])
+def run_sql_post():
+    data = request.get_json()
+    sql = data.get("sql") if data else None
+    print("sql", sql)
+    if sql is None:
+        return jsonify({"type": "error", "error": "No SQL query provided", "sql": sql})
+    try:
+        df = vn.run_sql(sql=sql)
+        return jsonify({"type": "df", "df": df.head(10).to_json(orient="records")})
+    except Exception as e:
+        return jsonify({"type": "error", "error": str(e)})
+
 @app.route('/api/v0/download_csv', methods=['GET'])
 @requires_cache(['df'])
 def download_csv(id: str, df):
@@ -118,7 +132,7 @@ def download_csv(id: str, df):
 def generate_plotly_figure(id: str, df, question, sql):
     try:
         code = vn.generate_plotly_code(question=question, sql=sql, df_metadata=f"Running df.dtypes gives:\n {df.dtypes}")
-        fig = vn.get_plotly_figure(plotly_code=code, df=df, dark_mode=False)
+        fig = vn.get_plotly_figure(plotly_code=code, df=df, dark_mode=True)
         fig_json = fig.to_json()
 
         cache.set(id=id, field='fig_json', value=fig_json)
