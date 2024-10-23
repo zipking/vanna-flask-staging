@@ -96,7 +96,7 @@ def run_sql(id: str, sql: str):
             {
                 "type": "df", 
                 "id": id,
-                "df": df.head(10).to_json(orient='records'),
+                "df": df.to_json(orient='records'),
             })
 
     except Exception as e:
@@ -111,7 +111,7 @@ def run_sql_post():
         return jsonify({"type": "error", "error": "No SQL query provided", "sql": sql})
     try:
         df = vn.run_sql(sql=sql)
-        return jsonify({"type": "df", "df": df.head(10).to_json(orient="records")})
+        return jsonify({"type": "df", "df": df.to_json(orient="records")})
     except Exception as e:
         return jsonify({"type": "error", "error": str(e)})
 
