@@ -79,7 +79,7 @@ def generate_sql():
     valid = vn.is_sql_valid(sql)
     if not valid:
         my_prompt = [
-            vn.system_message("You are a helpful assistant that will answer queries about Malaysia"),
+            vn.system_message("You are a helpful assistant that will answer queries about Malaysia and the connected database"),
             vn.user_message("Query: " + question),
         ]
         sql = vn.submit_prompt(prompt=my_prompt)
