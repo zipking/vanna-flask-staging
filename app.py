@@ -85,7 +85,7 @@ def generate_sql():
         sql = vn.submit_prompt(prompt=my_prompt)
         return jsonify(
         {
-            "type": "prompt", 
+            "type": "ai", 
             "id": id,
             "text": sql,
         })
