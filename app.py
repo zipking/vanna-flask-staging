@@ -84,7 +84,7 @@ def generate_sql():
         # ]
         # sql = vn.submit_prompt(prompt=my_prompt)
         slist = vn.get_related_documentation(question)
-        sql = ' '.join(slist)
+        sql = slist[0]
     return jsonify(
         {
             "type": "sql", 
