@@ -245,9 +245,9 @@ def load_question(id: str, question, sql, df, fig_json, followup_questions):
 def get_question_history():
     return jsonify({"type": "question_history", "questions": cache.get_all(field_list=['question']) })
 
-# @app.route('/')
-# def root():
-#     return app.send_static_file('index.html')
+@app.route('/')
+def root():
+    return app.send_static_file('index.html')
 
 if __name__ == '__main__':
     app = VannaFlaskApp(vn, allow_llm_to_see_data=True)
