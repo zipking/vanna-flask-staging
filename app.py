@@ -169,6 +169,11 @@ def get_training_data():
         "df": df.to_json(orient='records'),
     })
 
+@app.route('/api/v0/get_training_data2', methods=['GET'])
+def get_training_data2():
+    df = vn.get_training_data()
+    return df.to_json(orient='records')
+
 @app.route('/api/v0/remove_training_data', methods=['POST'])
 def remove_training_data():
     # Get id from the JSON body
