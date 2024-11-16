@@ -255,5 +255,22 @@ def root():
     return app.send_static_file('index.html')
 
 if __name__ == '__main__':
-    app = VannaFlaskApp(vn, allow_llm_to_see_data=True)
+    app = VannaFlaskApp(
+       vn=vn,
+    debug = True,
+    allow_llm_to_see_data=True,
+    title="Hello World",
+    subtitle="This is a test",
+    show_training_data = True,
+    suggested_questions = True,
+    csv_download = False,
+    sql=True,
+    table=True,
+    chart=True,
+    redraw_chart = True,
+    auto_fix_sql = True,
+    summarization=True,
+    followup_questions = True,
+    ask_results_correct=True,
+    )
     app.run(debug=True)
